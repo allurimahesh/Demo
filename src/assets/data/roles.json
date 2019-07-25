@@ -1,0 +1,34 @@
+[
+  {
+    "rolename" : "Admin",
+    "description": "admin"
+  },
+  {
+    "rolename" : "CSO",
+    "description": "cso"
+  },
+  {
+    "rolename" : "Admin",
+    "description": "admin"
+  },
+  {
+    "rolename" : "CSO",
+    "description": "cso"
+  },
+  {
+    "rolename" : "Admin",
+    "description": "admin"
+  },
+  {
+    "rolename" : "CSO",
+    "description": "cso"
+  },
+  {
+    "rolename" : "Admin",
+    "description": "admin"
+  },
+  {
+    "rolename" : "CSO",
+    "description": "cso"
+  }
+]

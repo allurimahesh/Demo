@@ -1,0 +1,57 @@
+<section class="login p-fixed d-flex text-center bg-primary common-img-bg">
+    <div class="auth-fluid">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="login-card card-body auth-body">
+            <form class="md-float-material">
+              <div class="text-center">
+                <img src="assets/images/auth/logo.png" alt="logo.png">
+              </div>
+              <div class="auth-box">
+                <div class="row m-b-20">
+                  <div class="col-md-12">
+                    <h3 class="text-left txt-primary">Sign In</h3>
+                  </div>
+                </div>
+                <p *ngIf="message" class="text-center error">{{message}}</p>
+                <hr/>
+               <form [formGroup]="loginForm" >
+                  <!-- [ngClass]="{ 'has-error': submitted && f.emailid.errors }" -->
+                <div class="input-group">
+                  <input type="email" class="form-control" formControlName='emailid' placeholder="Your Email Address">
+                  <span class="md-line"></span>
+                </div>
+                <!-- [ngClass]="{ 'has-error': submitted && f.password.errors }" -->
+                <div class="input-group">
+                  <input type="password" class="form-control" formControlName='password' placeholder="Password">
+                  <span class="md-line"></span>
+                </div>
+                <div class="row m-t-25 text-left">
+                  <div class="col-sm-7 col-xs-12">
+                    <div class="checkbox-fade fade-in-primary">
+                      <label>
+                        <input type="checkbox" value="">
+                        <span class="cr">
+                          <i class="cr-icon icofont icofont-ui-check txt-primary"></i>
+                        </span>
+                        <span class="text-inverse">Remember me</span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-sm-5 col-xs-12 forgot-phone text-right">
+                    <a [routerLink]="['/auth/forgotpassword']" class="text-right f-w-600 text-inverse"> Forgot Your Password?</a>
+                  </div>
+                </div>
+                <div class="row m-t-30">
+                  <div class="col-md-12">
+                    <button type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20" [disabled]=" !loginForm.valid" (click) = "btnClick()">Sign in</button>
+                  </div>
+                </div>
+              </form>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

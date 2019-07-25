@@ -1,0 +1,22 @@
+.btn-btn {
+    margin-top: 1.0rem;
+}
+// .role > .form-control, .input-group > .custom-select, .input-group > .custom-file {
+//     margin: 0.6rem 6rem 0.3rem 6rem;
+
+// }
+
+.no-records {
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+  }
+
+#treeparent{
+    overflow: auto;
+    max-height: 17rem;
+    min-height: 17rem;
+    margin-top: -2rem;
+  }

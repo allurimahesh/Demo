@@ -1,0 +1,219 @@
+<div class="card"  *ngIf="!addcontent && !updatecontent">
+    <div class="card-header">
+      <h5>Content Details</h5>
+      <button type="button" class="btn btn-primary waves-effect waves-light f-right d-inline-block md-trigger" (click)="toggleAddContent()">
+      <i class="icofont icofont-plus m-r-5"></i> Add Content
+      </button>
+    </div>
+    <div class="card-body" >
+      <div class="table-content crm-table">
+        <div class="project-table">
+          <div id="crm-contact" class="dt-responsive">
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-sm-12 col-md-6">
+                <div>
+                  <label class="label-control">Show
+                    <select class="form-control input-sm full-data-show-entry" [(ngModel)]="rowsOnPage">
+                      <option [ngValue]="10">10</option>
+                      <option [ngValue]="25">25</option>
+                      <option [ngValue]="50">50</option>
+                      <option [ngValue]="100">100</option>
+                    </select>
+                    entries
+                  </label>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-6">
+                <div style="text-align: right;">
+                  <label>Search:
+                     <input type="search" [(ngModel)]="filterQuery" class="form-control input-sm full-data-search" placeholder="Search name">
+                  </label>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="panel-heading">User information</div>-->
+            <div >
+            <div class="table-responsive">
+              <table class="table table-striped table-bordered full-data-table" [mfData]="data" #mf="mfDataTable"
+                [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+                <thead>
+                  <tr>
+                    <th>
+                      <mfDefaultSorter by="title">Title</mfDefaultSorter>
+                    </th>
+                    <th>
+                      <mfDefaultSorter by="description">Description</mfDefaultSorter>
+                    </th>
+                    <th>
+                      <mfDefaultSorter>Action</mfDefaultSorter>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let content of mf.data | dataFilter: {title: filterQuery, description: filterQuery};">
+                    <td>{{content.title}}</td>
+                    <td>{{content.description}}</td>
+                    <td class="action-icon">
+                      <a href="javascript:;" class="m-r-15 crm-action-edit text-muted text-primary" (click)="toggleEditContent()"><i
+                          class="icofont icofont-ui-edit"></i></a>
+                      <a href="javascript:;" class="crm-action-delete text-muted text-danger" (click)="deleteContent(content.id)"><i
+                          class="icofont icofont-delete-alt"></i></a>
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="10">
+                       <mfBootstrapPaginator class="pagination-main f-right"></mfBootstrapPaginator>
+                        <div *ngIf= "!data?.length" class="no-records">
+                    No records found!...
+                  </div>
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<div class="row" *ngIf="addcontent">
+  <div class="col-sm-12">
+    <div class="card">
+      <div class="card-header">
+          <h5>Add Content Write</h5>
+        </div>
+        <div class="card-body">
+            <form>
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">Title</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">Upload Image</label>
+                  <div class="col-sm-10">
+                    <input type="file" class="form-control" placeholder="Type your title in Placeholder">
+                  </div>
+                </div>
+            <h5 class="card-header-text">Description</h5>
+            <!-- <div class="text-right">
+              <button type="button" class=" btn-info" data-toggle="modal" data-target="#myModal">Preview</button>
+            </div>
+            <quill-editor
+              [(ngModel)]="editorContent"
+              [options]="editorConfig"
+              (blur)="onEditorBlured($event)"
+              (focus)="onEditorFocused($event)"
+              (ready)="onEditorCreated($event)"
+              (change)="onContentChanged($event)">
+            </quill-editor> -->
+             <!-- value:{{html}} -->
+             <!-- <span #element [innerHTML] = "froalaEditor | safe: 'html'"></span> -->
+             <h4>Froala Editor</h4>
+            <div [froalaEditor]="{heightMin:275,heightMax:275}">Hello, Froala!</div>
+            <br>
+            <h4>ckEditor Editor</h4>
+
+			<!-- <p>
+				To use the CKEditor 4 WYSIWYG editor component, create a new <code>&lt;ckeditor&gt;</code> tag. The initial data of the editor can be set with the <code>data</code> property.
+			</p>
+
+			<p>
+				The two available editor types are <strong>divarea editor</strong> (an inline editor with a <a href="./fixedui.html">fixed UI</a>) and <strong>inline editor</strong> with a <a href="./floatingui.html">floating UI</a>.
+			</p>
+
+			<p>Use the button below to change the editor type.</p> -->
+
+			<ckeditor	*ngIf="!inline" [(data)]="editorData"></ckeditor>
+
+			<!-- <ckeditor	*ngIf="inline" type="inline" [(data)]="editorData"></ckeditor> -->
+
+			<!-- <button class="editor-type" (click)="changeEditorType()">
+				Change to {{ inline ? 'divarea' : 'inline' }}
+			</button> -->
+            <div class="text-right">
+            <button type="button" class="btn btn-btn btn-success" >
+                <span class="fa fa-upload"></span> Save All
+              </button>
+              <button type="button" class="btn btn-btn btn-warning"  (click)="toggleAddContent()">
+                <span class="fa fa-ban"></span> Cancel all
+              </button>
+            </div>
+      </form>
+     </div>
+  </div>
+  </div>
+</div>
+
+
+<div class="modal" id="myModal" >
+  <div class="modal-dialog"  style="max-width:1250px; max-height: 450px; min-height: 450px">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Preview Content</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <!-- Modal body -->
+      <div class="modal-body" style="overflow: auto">
+        <span #element [innerHTML] = "html | safe: 'html'" ></span>
+          <!-- <div [innerHTML]="html"></div> -->
+      </div>
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row" *ngIf="updatecontent">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-header">
+            <h5>Update Content Write</h5>
+          </div>
+          <div class="card-body">
+              <form>
+                  <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Title</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Upload Image</label>
+                    <div class="col-sm-10">
+                      <input type="file" class="form-control" placeholder="Type your title in Placeholder">
+                    </div>
+                  </div>
+              <h5 class="card-header-text">Description</h5>
+              <!-- <quill-editor
+                [(ngModel)]="editorContent"
+                [options]="editorConfig"
+                (blur)="onEditorBlured($event)"
+                (focus)="onEditorFocused($event)"
+                (ready)="onEditorCreated($event)"
+                (change)="onContentChanged($event)">
+              </quill-editor> -->
+              <div [froalaEditor]="{heightMin:275,heightMax:275}">Hello, Froala!</div>
+              <!-- <div [froalaEditor]>Hello, Froala!</div> -->
+              <div class="text-right">
+              <button type="button" class="btn btn-btn btn-success" >
+                  <span class="fa fa-upload"></span> Update All
+                </button>
+                <button type="button" class="btn btn-btn btn-warning" (click)="toggleEditContent()" >
+                  <span class="fa fa-ban"></span> Cancel all
+                </button>
+              </div>
+        </form>
+       </div>
+    </div>
+    </div>
+  </div>

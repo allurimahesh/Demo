@@ -1,0 +1,109 @@
+<div class="card">
+  <div class="card-header">
+    <h5>Customer Details</h5>
+  </div>
+  <div class="card-body">
+    <div class="table-content crm-table">
+      <div class="project-table">
+        <div id="crm-contact" class="dt-responsive">
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-sm-12 col-md-6">
+              <div>
+                <label class="label-control">Show
+                  <select class="form-control input-sm full-data-show-entry" [(ngModel)]="rowsOnPage">
+                    <option [ngValue]="10">10</option>
+                    <option [ngValue]="25">25</option>
+                    <option [ngValue]="50">50</option>
+                    <option [ngValue]="100">100</option>
+                  </select>
+                  entries
+                </label>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6">
+              <div style="text-align: right;">
+                <label>Search:
+                  <input type="search" [(ngModel)]="filterQuery" class="form-control input-sm full-data-search" placeholder="Search name">
+                </label>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="panel-heading">User information</div>-->
+          <div class="table-responsive">
+          <table class="table table-striped table-bordered full-data-table" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable"
+                 [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+            <thead>
+            <tr>
+              <th>
+                <mfDefaultSorter  by="name">Customer Name</mfDefaultSorter>
+              </th>
+              <th>
+                <mfDefaultSorter  by="email">EmailID</mfDefaultSorter>
+              </th>
+              <th>
+                <mfDefaultSorter  by="position">Phone No</mfDefaultSorter>
+              </th>
+              <th>
+                <mfDefaultSorter by="office">Address</mfDefaultSorter>
+              </th>
+              <th>
+                <mfDefaultSorter>Action</mfDefaultSorter>
+              </th>
+            </tr>
+            <tr>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of mf.data">
+              <td>{{item.name}}</td>
+              <td>{{item.email}}</td>
+              <td>{{item.phone_no}}</td>
+              <!-- <td>{{item.position}}</td> -->
+              <td>{{item.office}}</td>
+              <!-- <td>{{item.date}}</td> -->
+              <td class="action-icon">
+                <a href="javascript:;" class="m-r-15 crm-action-edit text-muted text-primary" [routerLink]="['/customereditdetails']"><i class="icofont icofont-ui-edit"></i></a>
+                <!-- <a href="javascript:;" class="m-r-15 crm-action-view text-muted text-info"><i class="icofont icofont-open-eye"></i></a> -->
+                <a href="javascript:;" class="m-r-15 crm-action-delete text-muted text-danger" (click)="deletecustomer()"><i class="icofont icofont-delete-alt"></i></a>
+                <a href="javascript:;" class="crm-action-edit text-muted text-primary" (click)="openMyModal('effect-13')"><i class="icofont icofont-key"></i></a>
+              </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+              <td colspan="10">
+                <mfBootstrapPaginator class="pagination-main f-right"></mfBootstrapPaginator>
+              </td>
+            </tr>
+            </tfoot>
+          </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<app-modal-animation [modalID]="'effect-13'" [modalClass]="'md-effect-13'">
+  <form [formGroup]="passwordFrom">
+<h3 class="f-26">Password Change</h3>
+<div class="text-center passwordFrom">
+  <div class="input-group ">
+    <label class="col-sm-5 text-left">New Password</label>
+    <input type="password" class="form-control" formControlName="password" placeholder="New Password">
+    <span class="md-line"></span>
+  </div>
+  <div class="input-group">
+    <label class="col-sm-5 text-left">Confrim New Password</label>
+    <input type="password" class="form-control"  formControlName="confirmpassword" placeholder="Confrim New Password">
+    <span class="md-line"></span>
+  </div>
+  <button type="submit" class="btn btn-btn btn-primary waves-effect m-r-20 f-w-600 d-inline-block">Update</button>
+  <button (click)="closemyModal($event)" class="btn btn-btn btn-danger waves-effect m-r-20 f-w-600 md-close d-inline-block">Close</button>
+</div>
+<button (click)="closemyModal($event)" aria-label="Close" class="md-close-btn">
+  <i class="icofont icofont-ui-close"></i>
+</button>
+</form>
+</app-modal-animation>

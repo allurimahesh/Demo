@@ -1,0 +1,155 @@
+{
+  "Role": [
+    {
+      "dono": 1234,
+      "pno": 4567,
+      "quality": "Bad",
+      "description": "Good",
+      "pono": 10,
+      "id": 5
+    },
+    {
+      "id": 6,
+      "dono": 2580,
+      "pno": 2587,
+      "quality": "qwerty",
+      "description": "jgfasdf",
+      "pono": 5544
+    },
+    {
+      "id": 7,
+      "dono": 1258,
+      "pno": 2081,
+      "quality": "fghjk",
+      "description": "zxcvb",
+      "pono": 2019
+    },
+    {
+      "id": 8,
+      "dono": 8265,
+      "pno": 2552,
+      "quality": "Extreme",
+      "description": "Extreme",
+      "pono": 2588
+    },
+    {
+      "dono": 68265,
+      "pno": 2552,
+      "quality": "Extreme",
+      "description": "normal",
+      "pono": 2588,
+      "id": 10
+    },
+    {
+      "id": 11,
+      "dono": 258,
+      "pno": 2587,
+      "quality": "js",
+      "description": "jgf",
+      "pono": 55464
+    },
+    {
+      "id": 12,
+      "dono": 245812,
+      "pno": 91619,
+      "quality": "dfgjklhn",
+      "description": "vyfjhg",
+      "pono": 25226
+    },
+    {
+      "id": 13,
+      "dono": 23,
+      "pno": 23,
+      "quality": "dcvDS",
+      "description": "dsv",
+      "pono": 3245
+    },
+    {
+      "id": 14,
+      "dono": 567,
+      "pno": 234,
+      "quality": "dqf",
+      "description": "cv",
+      "pono": 32,
+      "uploadfile": null
+    },
+    {
+      "id": 15,
+      "dono": 987,
+      "pno": 345,
+      "quality": "gfh",
+      "description": "jhdf",
+      "pono": 565,
+      "uploadfile": null
+    },
+    {
+      "id": 16,
+      "dono": 5454,
+      "pno": 54455,
+      "quality": "sdgsdfg",
+      "description": "dfg",
+      "pono": 64354,
+      "uploadfile": null
+    },
+    {
+      "id": 18,
+      "dono": 2584,
+      "pno": 2587,
+      "quality": "Normal",
+      "description": "Normal",
+      "pono": 5045
+    },
+    {
+      "dono": 8765,
+      "pno": 8797,
+      "quality": "Not Good",
+      "description": "Bad",
+      "pono": 2345,
+      "id": 21
+    }
+  ],
+  "User": [
+    {
+      "id": 1,
+      "EmployeeID": 123456,
+      "emailID": "amc@gmail.com",
+      "department": "all",
+      "password": "all",
+      "role": [
+        "agent",
+        "benz"
+      ]
+    },
+    {
+      "id": 2,
+      "EmployeeID": 111,
+      "emailID": "amc@gmail.com",
+      "department": "Deveop",
+      "password": "deveop",
+      "role": [
+        "audi",
+        "benz",
+        "bmw",
+        "bpo",
+        "prosche"
+      ]
+    },
+    {
+      "id": 3,
+      "EmployeeID": 125845,
+      "emailID": "amc@gmail.com",
+      "department": "Syco",
+      "password": "syco",
+      "role": [
+        "audi",
+        "benz",
+        "bmw"
+      ]
+    }
+  ],
+  "Permission": [
+    {
+      "name": "typicode"
+    }
+  ]
+}

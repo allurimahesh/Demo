@@ -1,0 +1,224 @@
+<div class="card"  *ngIf="!addrole && !updaterole">
+  <div class="card-header">
+    <h5>Manage Roles</h5>
+    <button type="button" class="btn btn-primary waves-effect waves-light f-right d-inline-block md-trigger" (click)="toggleViewAddRoles()">
+    <i class="icofont icofont-plus m-r-5"></i> Add Role
+    </button>
+  </div>
+  <div class="card-body" >
+    <div class="table-content crm-table">
+      <div class="project-table">
+        <div id="crm-contact" class="dt-responsive">
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-sm-12 col-md-6">
+              <div>
+                <label class="label-control">Show
+                  <select class="form-control input-sm full-data-show-entry" [(ngModel)]="rowsOnPage">
+                    <option [ngValue]="10">10</option>
+                    <option [ngValue]="25">25</option>
+                    <option [ngValue]="50">50</option>
+                    <option [ngValue]="100">100</option>
+                  </select>
+                  entries
+                </label>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6">
+              <div style="text-align: right;">
+                <label>Search:
+                   <input type="search" [(ngModel)]="filterQuery" class="form-control input-sm full-data-search" placeholder="Search name">
+                </label>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="panel-heading">User information</div>-->
+          <div >
+          <div class="table-responsive">
+            <table class="table table-striped table-bordered full-data-table" [mfData]="data" #mf="mfDataTable"
+              [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+              <thead>
+                <tr>
+                  <th>
+                    <mfDefaultSorter by="rolename">Role</mfDefaultSorter>
+                  </th>
+                  <th>
+                    <mfDefaultSorter by="description">Description</mfDefaultSorter>
+                  </th>
+                  <th>
+                    <mfDefaultSorter>Action</mfDefaultSorter>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let role of mf.data | dataFilter: {rolename: filterQuery, description: filterQuery};">
+                  <td>{{role.rolename}}</td>
+                  <td>{{role.description}}</td>
+                  <td class="action-icon">
+                    <a href="javascript:;" class="m-r-15 crm-action-edit text-muted text-primary" (click)="toggleViewEditRoles()"><i
+                        class="icofont icofont-ui-edit"></i></a>
+                    <a href="javascript:;" class="crm-action-delete text-muted text-danger" (click)="deleteRole(role.id)"><i
+                        class="icofont icofont-delete-alt"></i></a>
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="10">
+                     <mfBootstrapPaginator class="pagination-main f-right"></mfBootstrapPaginator>
+                      <div *ngIf= "!data?.length" class="no-records">
+                  No records found!...
+                </div>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Start Model -->
+
+<div class="card" *ngIf="updaterole">
+    <div class="card-header">
+      <h5>Update Role</h5>
+      <!-- <a [routerLink]="['/manageroles']" class="pull-right" style="padding: 0.4rem">
+        <i class="icofont icofont-arrow-left"></i> Back
+      </a> -->
+    </div>
+    <div class="card-body">
+        <div class="col-md-12">
+          <!-- Inverse Image Caps card start -->
+            <div class="row users-card">
+              <div class="col-lg-6">
+                <div class="card user-card">
+                  <div class="top-cap-text">
+                      <form [formGroup]="roleForm">
+                          <!-- <h3 class="f-26">Role Update</h3> -->
+                             <div class="text-center">
+
+                           <div class="form-group row">
+                             <label class="col-sm-4 col-form-label">Enter Role</label>
+                             <div class="col-sm-6">
+                                 <input type="text" [(ngModel)]="rolesData.rolename" class="form-control" formControlName="rolename" placeholder="Role">
+
+                             </div>
+                           </div>
+
+                               <div class="form-group row">
+                                   <label class="col-sm-4 col-form-label">Enter Description</label>
+                                   <div class="col-sm-6">
+                                       <input type="text" [(ngModel)]="rolesData.description" class="form-control" formControlName="description" placeholder="Description">
+                                   </div>
+                                 </div>
+                         </div>
+
+                       </form>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="card user-card">
+                  <div class="top-cap-text">
+                    <h4>Permissions</h4>
+                    <div id='treeparent'>
+                        <!-- <ejs-treeview #treeview id='treeelement' [fields]='field' [showCheckBox]='showCheckBox' (nodeChecked)='nodeChecked($event)'>
+                         </ejs-treeview> -->
+                         <ngx-treeview
+                         [config]="config"
+                         [items]="items"
+                         (selectedChange)="onSelectedChange($event)"
+                         (filterChange)="onFilterChange($event)">
+                     </ngx-treeview>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- end of row -->
+          <!-- Inverse Image Caps card end -->
+        </div>
+        <div class="text-right">
+        <button type="button" (click)="updateData('effect-12', rolesData)" [disabled]="!roleForm.valid" class="btn btn-btn btn-primary waves-effect m-r-20 f-w-600 d-inline-block">Save</button>
+        <button (click) = "toggleViewEditRoles()" class="btn btn-btn btn-danger waves-effect m-r-20 f-w-600 md-close d-inline-block">Close</button>
+      </div>
+    </div>
+    </div>
+
+
+<!-- edit Ends Model-->
+<!-- ends -->
+<div class="card" *ngIf="addrole">
+    <div class="card-header">
+      <h5>Add Role</h5>
+      <!-- <a [routerLink]="['/manageroles']" class="pull-right">
+        <i class="icofont icofont-arrow-left"></i> Back
+      </a> -->
+    </div>
+    <div class="card-body">
+        <div class="col-md-12">
+          <!-- Inverse Image Caps card start -->
+            <div class="row users-card">
+              <div class="col-lg-6">
+                <div class="card user-card">
+                  <div class="top-cap-text">
+                      <form [formGroup]="roleForm">
+                          <!-- <h3 class="f-26">Role Update</h3> -->
+                             <div class="text-center">
+
+                           <div class="form-group row">
+                             <label class="col-sm-4 col-form-label">Enter Role</label>
+                             <div class="col-sm-6">
+                                 <input type="text" [(ngModel)]="rolesData.rolename" class="form-control" formControlName="rolename" placeholder="Role">
+
+                             </div>
+                           </div>
+
+                               <div class="form-group row">
+                                   <label class="col-sm-4 col-form-label">Enter Description</label>
+                                   <div class="col-sm-6">
+                                       <input type="text" [(ngModel)]="rolesData.description" class="form-control" formControlName="description" placeholder="Description">
+
+                                   </div>
+                                 </div>
+                         </div>
+
+                       </form>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="card user-card">
+                  <div class="top-cap-text">
+                      <h6>Permissions</h6>
+                       <div id='treeparent'>
+                     <!--   <ejs-treeview #treeview id='treeelement' [fields]='field' [showCheckBox]='showCheckBox' (nodeChecked)='nodeChecked($event)'>
+                         </ejs-treeview>  -->
+                         <ngx-treeview
+                          [config]="config"
+                          [items]="items"
+                          (selectedChange)="onSelectedChange($event)"
+                          (filterChange)="onFilterChange($event)">
+                      </ngx-treeview>
+                        </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- end of row -->
+          <!-- Inverse Image Caps card end -->
+        </div>
+        <div class="text-right">
+        <button type="button" (click)="updateData('effect-12', rolesData)" [disabled]="!roleForm.valid" class="btn btn-btn btn-primary waves-effect m-r-20 f-w-600 d-inline-block">Save</button>
+        <button (click)="toggleViewAddRoles()" class="btn btn-btn btn-danger waves-effect m-r-20 f-w-600 md-close d-inline-block">Close</button>
+      </div>
+    </div>
+    </div>
+</div>
+<!-- Add Contact Popup start-->
+
+
+<!-- AddPopup ends-->

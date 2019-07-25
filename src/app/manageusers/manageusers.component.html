@@ -1,0 +1,184 @@
+<div class="card">
+  <div class="card-header">
+    <h5>User Details</h5>
+    <button type="button" class="btn btn-primary waves-effect waves-light f-right d-inline-block md-trigger" style="margin:-3px 0 8px 0" (click)="openMyModal('effect-13')">
+      <i class="icofont icofont-plus m-r-5"></i> Add User
+    </button>
+  </div>
+  <div class="card-body">
+    <div class="table-content crm-table">
+      <div class="project-table">
+        <div id="crm-contact" class="dt-responsive">
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-sm-12 col-md-6">
+              <div>
+                <label class="label-control">Show
+                  <select class="form-control input-sm full-data-show-entry" [(ngModel)]="rowsOnPage">
+                    <option [ngValue]="10">10</option>
+                    <option [ngValue]="25">25</option>
+                    <option [ngValue]="50">50</option>
+                    <option [ngValue]="100">100</option>
+                  </select>
+                  entries
+                </label>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6">
+              <div style="text-align: right;">
+                <label>Search:
+                  <input type="search" [(ngModel)]="filterQuery" class="form-control input-sm full-data-search" placeholder="Search name">
+                </label>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="panel-heading">User information</div>-->
+          <div class="table-responsive">
+            <table class="table table-striped table-bordered full-data-table" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable"
+              [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+              <thead>
+                <tr>
+                  <th>
+                    <mfDefaultSorter by="username">User Name</mfDefaultSorter>
+                  </th>
+                  <th>
+                    <mfDefaultSorter by="emailid">Email ID</mfDefaultSorter>
+                  </th>
+                  <th>
+                    <mfDefaultSorter by="phoneno">Phone No</mfDefaultSorter>
+                  </th>
+                  <th>
+                    <mfDefaultSorter by="role">Role</mfDefaultSorter>
+                  </th>
+                  <th>
+                    <mfDefaultSorter>Action</mfDefaultSorter>
+                  </th>
+                </tr>
+                <tr>
+                </tr>
+              </thead>
+              <tbody>
+               <tr *ngFor="let user of mf.data">
+                  <td>{{user.username}}</td>
+                  <td>{{user.emailID}}</td>
+                  <td>{{user.phoneno}}</td>
+                  <td>{{user.role}}</td>
+                  <td class="action-icon">
+                    <a href="javascript:;" class="m-r-15 crm-action-edit text-muted text-primary" (click)="openMyModal('effect-12')">
+                      <i class="icofont icofont-ui-edit"></i>
+                    </a>
+                    <a href="javascript:;" class="crm-action-delete text-muted text-danger" (click)="deleteUser(user.id)">
+                      <i class="icofont icofont-delete-alt"></i>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="10">
+                    <mfBootstrapPaginator class="pagination-main f-right"></mfBootstrapPaginator>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Contact Start Model -->
+<app-modal-animation [modalID]="'effect-13'" [modalClass]="'md-effect-13'">
+    <form [formGroup]="userForm" novalidate>
+      <h3 class="f-26">Add User</h3>
+      <div class="text-center">
+        <div class="input-group">
+          <input type="number" [(ngModel)]="userAddData.username" formControlName="username" class="form-control" placeholder="User Name">
+          <span class="md-line"></span>
+        </div>
+
+        <div class="input-group">
+          <input type="email" [(ngModel)]="userAddData.emailID" formControlName="emailID" class="form-control" placeholder="Your Email Address">
+          <span class="md-line"></span>
+        </div>
+
+        <div class="input-group">
+            <input type="email" [(ngModel)]="userAddData.phoneno" formControlName="phoneno" class="form-control" placeholder="Enter Phone No">
+            <span class="md-line"></span>
+        </div>
+
+        <div class="input-group">
+          <input type="password" [(ngModel)]="userAddData.password" formControlName="password" class="form-control" placeholder="Password">
+          <span class="md-line"></span>
+        </div>
+
+        <div class="input-group">
+          <select class="form-control form-control-default" [(ngModel)]="userAddData.role" formControlName="role" name="select">
+            <option value="opt1" selected>Select role </option>
+            <option value="opt2">Type 2</option>
+            <option value="opt3">Type 3</option>
+          <option *ngFor="let r of Role" value={{r.id}}>{{r.name}}</option>
+          </select>
+        </div>
+
+        <button type="submit" (click)="userDataSubmit('effect-13')" class="btn btn-btn btn-primary waves-effect m-r-20 f-w-600 d-inline-block">Save</button>
+        <button (click)="closeMyModal($event)" data-dismiss="modal" #closeBtn class="btn btn-btn btn-danger waves-effect m-r-20 f-w-600 md-close d-inline-block">Close</button>
+      </div>
+      <button (click)="closeMyModal($event)" data-dismiss="modal" #closeBtn aria-label="Close" class="md-close-btn">
+        <i class="icofont icofont-ui-close"></i>
+      </button>
+    </form>
+  </app-modal-animation>
+  <!-- Add Contact Ends Model-->
+  <!-- ends -->
+
+  <!-- modalupdate -->
+  <app-modal-animation [modalID]="'effect-12'" [modalClass]="'md-effect-13'">
+      <form [formGroup]="userForm">
+    <h3 class="f-26">User Update</h3>
+    <div class="text-center">
+      <!-- {{usersEditData.EmployeeID}} {{usersEditData.emailID}} {{ usersEditData.department}} {{usersEditData.department}} {{usersEditData.role}} -->
+      <div class="input-group ">
+        <!-- <label class="col-sm-5 text-left">Employee ID</label> -->
+        <input type="text" class="form-control" [(ngModel)]="usersEditData.username" formControlName="username" placeholder="Enter User Name" disabled>
+        <span class="md-line"></span>
+      </div>
+      <div class="input-group">
+        <!-- <label class="col-sm-5 text-left">Email ID</label> -->
+        <input type="email" class="form-control" [(ngModel)]="usersEditData.emailID" formControlName="emailID" placeholder="Your Email Address">
+        <span class="md-line"></span>
+      </div>
+      <div class="input-group">
+        <!-- <label class="col-sm-5 text-left">Email ID</label> -->
+        <input type="number" class="form-control" [(ngModel)]="usersEditData.phoneno" formControlName="phoneno" placeholder="Enter Phone No">
+        <span class="md-line"></span>
+      </div>
+
+      <div class="input-group">
+          <!-- <label class="col-sm-5 text-left">Password</label> -->
+          <input type="password" class="form-control" [(ngModel)]="usersEditData.password" formControlName="password" placeholder="Password">
+          <span class="md-line"></span>
+        </div>
+
+      <div class="input-group">
+        <!-- <label class="col-sm-5 text-left">Role</label> -->
+        <select class="form-control" name="select" [(ngModel)]="usersEditData.role" formControlName="role">
+          <option value="opt1" selected>Select role </option>
+          <option *ngFor="let r of Role" value={{r.id}}>
+              {{r.name}}
+          </option>
+        </select>
+      </div>
+
+      <button type="submit" (click)="userUpdateData('effect-12', usersEditData)" class="btn btn-btn btn-primary waves-effect m-r-20 f-w-600 d-inline-block">Update</button>
+      <button (click)="closemyModal($event)" class="btn btn-btn btn-danger waves-effect m-r-20 f-w-600 md-close d-inline-block">Close</button>
+    </div>
+    <button (click)="closemyModal($event)" aria-label="Close" class="md-close-btn">
+      <i class="icofont icofont-ui-close"></i>
+    </button>
+    </form>
+  </app-modal-animation>
+
+
+
+
